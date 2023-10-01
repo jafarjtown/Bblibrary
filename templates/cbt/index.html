@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section>
+    <h2>CBT - practical</h2>
+    <p>Here are available Computer based test</p>
+    <ul>
+        {% for c in courses %}
+        <li>{{c.name}} <a href="{% url "cbt_test" c.id %}">attempt</a></li>
+        {% endfor %}
+    </ul>
+</section>
+
+{% endblock content %}

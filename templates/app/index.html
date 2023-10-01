@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static "css/style.css" %}">
+{% endblock css %}
+{% block content %}
+
+<section class="hero">
+    
+    <div>
+        <a href="{% url "course" %}">Courses</a>
+        <a href="{% url "material_list" %}">Materials</a>
+    </div>
+    <div>
+        <p>Get different kinds of materials here from pdfs to videos, handout, pass questions, useful or relevant resources and more all made available for you by the community</p>
+    </div>
+    
+</section>
+<section class="sec">
+    <h3><img src="{% static "/imgs/mission.png" %}" alt=""> Mission !</h3>
+    <p>
+        To make reading materials available as soon as possible for students when it's needed, we at Archive aim to providing access to educational materials to all National Association of Social science students.
+    </p>
+</section>
+<div class="hr"></div>
+<section class="sec">
+    <h3><img src="{% static "/imgs/vision.png" %}" alt=""> Vision !</h3>
+    <p>Imagine a platform where all reading resources can be found for your course from handouts, notes, course outline, assignments, pass questions and other relevant resources.</p>
+</section>
+<div class="hr"></div>
+<section class="sec">
+    <h3><img src="{% static "/imgs/archive.png" %}" alt=""> Resources !</h3>
+    <p>There's approximately 5,000 materials available for you ranging from handouts, notes, course outline, assignments and pass questions all in pdfs, videos, images and audios format</p>
+    
+</section>
+<section class="sec">
+    <h3><img src="{% static "/imgs/contribution.png" %}" alt=""> Contribution !</h3>
+    <p>You can contribute to the development of the platform as far as you are Ahmadu Bello University and Social Science student</p>
+</section>
+
+
+{% endblock content %}
+
+
+
+
+
+
+<div class="hero">
+    <div class="br">
+    
+        <h1>Welcome to SITENAME</h1>
+    
+        <p>Need a reading materials? worry no more, you are at the right place.</p>
+    </div>
+    <div>
+    
+        <p>You may ask, is it free? YES, its free my dear, it is sponsored by NASSS under the leadership of Jagaban for you and it's going to remained free forever!!</p>
+        <figure>
+        <img src="{% static "imgs/logo.jpg"%}" alt="">
+        <figcaption>Jagaban</figcaption>
+        </figure>
+        </div>
+    
+    <div class="br">
+        <p>You can get different kinds of materials here from pdfs to videos, handout, pass questions, useful or relevant resources and more all made available for you by the community</p>
+    </div>
+    <div class="nbr">
+            <div>There's up to 
+                <h1>10,000 +</h1> materials on this site
+            </div>
+            <div>
+                With <h1>5,000 +</h1> downloads
+            </div>
+    </div>
+    <div class="button-links">
+    
+    <p>
+      You have a useful soft copy of handout, pass questions or other important materials? you can also contribute in making this platform more helpful to we the students. Click on below button to Contribute 
+    </p>
+    
+        
+    
+    <a href="{% url "upload" %}">Contribute</a>
+    
+    </div>
+</div>

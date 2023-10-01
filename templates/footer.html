@@ -1,0 +1,50 @@
+{% load static %}
+<footer>
+    <h2><img src="{% static "imgs/archive.png" %}" alt=""> Babuga's Library</h2>
+    <p>Get reading resources and past questions all in here.</p>
+    <div class="hr"></div>
+    <div class="sponsors">
+        <div>
+            <img src="{% static "imgs/us~2.jpeg" %}" alt="Jafar picture">
+            <small>Jafaru Idris Tesla and Babuga Umar Baga</small>
+        </div>
+        
+    </div>
+    <p>The faces behind this platform.</p>
+    {% include "app/libs/buy_tea.html" %}
+    <div class="hr"></div>
+    <h4>Useful links</h4>
+    <ul>
+        <li>
+            <a href="/">Home</a>
+        </li>
+        <li>
+            <a href="{% url "material_list" %}">Materials</a>
+        </li>
+        <li>
+            <a href="{% url "upload" %}">Upload</a>
+        </li>
+        <li>
+            <a href="{% url "search" %}">Search</a>
+        </li>
+    </ul>
+    <div class="hr"></div>
+    <div class="form-div">
+        <p>Register for our Newsletter </p>
+        <form method="post" action="{% url "register_newsletter" %}">
+            {% csrf_token %}
+            <label>
+                
+                <input type="email" name="email" placeholder="Email" required>
+                <button class="submit-btn">submit</button>
+            </label>
+        </form>
+    </div>
+    <div>
+        This website is made useful through the contribution of the students, all resources are uploaded by students and administrators of the platform. 
+    </div>
+    <p><b>Disclaimer!</b> The website do not have any ownership of any resources found in the platform.</p>
+    
+    <div>2023 copyright</div>
+    <div class="hr"></div>
+</footer>

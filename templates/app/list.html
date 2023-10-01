@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section>
+    <h1>Resources page</h1>
+</section>
+{% include "app/libs/filter.html" with department=department departments=departments levels=levels btn="Filter" sort=True %}
+<section>
+    {% if course %}
+        <h3>{{course.code}}</h3>
+        <h4>{{course.title}}</h4>
+    {% else %}
+    <h3>All Documents </h3>
+    {% endif %}
+    <div>
+        {% for material in materials %}
+        
+        {% include "app/libs/material.html" with material=material %}
+        
+         {% empty %}
+         <p>Sorry, there's no any documents at the moment</p>
+         <p>Click below to add</p>
+         <a href="{% url "upload" %}">Add for the community</a>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
