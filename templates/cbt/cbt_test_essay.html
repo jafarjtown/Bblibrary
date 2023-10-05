@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<section>
+    <div questions style="display:flex;gap:2px;flex-wrap:wrap"></div>
+</section>
+<section>
+    <h2>{{course.topic}} Test</h2>
+    <p>This is just a playground or exercising place.</p>
+    
+    <div class="form-div">
+        {% for q in qs %}
+        <p>{{forloop.counter}}. {{q.question}}
+        </p>
+        {% endfor %}
+    </div>
+    
+</section>
+
+{% endblock content %}

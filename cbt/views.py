@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect 
 from django.http import JsonResponse 
-from .models import Course as cbt, Question, Option 
+from .models import Course as cbt, Question, Option, EssayTest, EssayQuestion
 from .forms import QuestionForm, OptionForm
 import random as r
 import json
@@ -58,7 +58,6 @@ def cbt_add_qs(request, course):
             question = question_form.save()
             course.questions.add(question)
             course.save()
-            print(option_forms)
             option_forms = [option_form for option_form in option_forms if option_form.is_valid()]
             for option_form in option_forms:
                 option = option_form.save()
@@ -93,3 +92,41 @@ def add_by_upload(request):
         else:
             return JsonResponse({"error": "No file uploaded"}, status=400)
     return redirect("cbt")
+
+
+def essay_cbt(request):
+    courses = EssayTest.objects.all()
+    return render(request, "cbt/essay_cbt.html", {"courses":courses})
+    
+def add_by_upload_essay(request):
+    if request.method == "POST":
+        uploaded_file = request.FILES.get("file")
+        if uploaded_file:
+              js = json.load(uploaded_file)
+              for topic in js:
+                  co, cr = EssayTest.objects.get_or_create(topic=topic.get("Topic"))
+                  if cr:
+                      co.note = topic.get("Essay")
+                  for q in topic.get("Questions"):
+                      if co.questions.filter(question=q).exists():
+                            continue 
+                      qu = EssayQuestion.objects.create(question=q)
+                      co.questions.add(qu)
+                      co.save()
+        else:
+            return JsonResponse({"error": "No file uploaded"}, status=400)
+    return redirect("essay_cbt")
+
+def cbt_create_course_essay(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        course = EssayTest.objects.get_or_create(name=name)
+        return redirect("cbt_add_qs", course=course.id)
+    return render(request, 'cbt/upload_essay_qs.html')
+    
+def cbt_test_essay(request, id=None):
+    course = EssayTest.objects.get(id=id)
+    questions= list(course.questions.all())
+    r.shuffle(questions)
+    return render(request, "cbt/cbt_test_essay.html", {"course": course, "qs": questions[:6]})
+    
