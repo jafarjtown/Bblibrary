@@ -5,11 +5,24 @@
 <section>
     <h2>CBT - practical</h2>
     <p>Here are available Computer based test</p>
-    <ul>
+    <table>
+        <thead>
+            <tr>
+                <td>Course</td>
+                <td>All questions</td>
+                <td>Actions</td>
+            </tr>
+        </thead>
+        <tbody>
         {% for c in courses %}
-        <li>{{c.name}} <a href="{% url "cbt_test" c.id %}">attempt</a></li>
+        <tr>
+            <td>{{c.name}}</td>
+            <td>{{c.questions.count}}</td>
+            <td><a href="{% url "cbt_test" c.id %}">Run</a> | <a href="#">Delete</a></td>
+        </tr>
         {% endfor %}
-    </ul>
+        </tbody>
+    </table>
 </section>
 
 {% endblock content %}

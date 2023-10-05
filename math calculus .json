@@ -1,4 +1,6 @@
-[
+{
+    "course":"Mathematics",
+    "questions": [
 {
     "question": "Find the limit as x approaches 0 of sin(x) / x.",
     "options": ["1", "0", "π", "∞"],
@@ -85,3 +87,5 @@
     "answer": "x = 0, x = 2"
   }
 ]
+
+}

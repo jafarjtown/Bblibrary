@@ -7,7 +7,22 @@
 :root{
     --primary-color: #55acff;
 }
-
+pre{
+    width: 100%;
+    overflow-y: scroll;
+    background: #0f121e;
+    color:#e2715e;
+    padding: 5px;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+}
+table, td{
+    border-collapse: collapse;
+    border: 2px solid;
+}
+td{
+    padding: 5px;
+}
 a{
     text-decoration: none;
     color: var(--primary-color);
@@ -272,7 +287,9 @@ footer .form-div label{
     border: none;
     border-radius: 4px;
 }
-
+.form-div input[type="checkbox"]{
+    width: fit-content;
+}
 
 section{
     padding: 10px;
