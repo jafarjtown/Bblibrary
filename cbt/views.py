@@ -11,6 +11,11 @@ def index(request):
     courses = cbt.objects.all()
     return render(request, "cbt/index.html", {"courses": courses})
 
+def tests(request):
+    obj = cbt.objects.all()
+    ess = EssayTest.objects.all()
+    return render(request, "cbt/cbt_tests.html", {"obj": obj, "ess": ess})
+
 @has_enough_coins(100)
 @subtract_coins(100)
 def cbt_test(request, id=None):

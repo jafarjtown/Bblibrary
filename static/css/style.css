@@ -39,6 +39,7 @@ header{
     z-index: 999;
     gap: 5px;
     background-color: black;
+    color: white;
 }
 header > div{
     display: flex;
@@ -116,29 +117,7 @@ header nav{
     flex-direction: row-reverse;
     z-index: 999;
 }
-.nav p{
-    color: black !important ;
-}
-.nav{
-    display: flex;
-    flex-direction: column;
-    background: white;
-    height: 100%;
-    width: 50%;
-    position: relative;
-    right: 0;
-    gap: 10px;
-    padding: 5px;
-}
-.nav a{
-    font-weight: bold;
-    color: black;
-    font-size: 17px;
-    border: .5px solid lightgray;
-    padding: 10px;
-    border-radius: 4px;
-    background: white;
-}
+
 main{
     padding: 2px 30px;
 }

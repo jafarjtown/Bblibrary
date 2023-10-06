@@ -5,13 +5,15 @@ from django.contrib.auth.models import User
 from django.template.loader import render_to_string
 
 from app.models import FlaggedIssue, Request 
-
+from .models import Account
 import datetime
 
 
 @receiver(post_save, sender=User)  # Replace User with your model
 def send_welcome_email(sender, instance, created, **kwargs):
     if created:
+        Account.objects.create(user=instance, coins=5000)
+    
         subject = "Welcome to Babuga's Library - Your School's Learning Hub!"
         email_content = render_to_string('welcome_mail.html', {'user_name': instance.get_full_name(), "admin": "Ja'afar Idris Tesla"})
         from_email = "Babuga's Library <support@babugas-library.com.ng>"

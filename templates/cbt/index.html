@@ -1,28 +1,77 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <style>
+        /* Add your CSS styles here for custom styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        p {
+            line-height: 1.5;
+        }
+        .get-started {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+    <div class="container">
+        
+        <!-- App Title -->
+        <h1>Welcome to Babuga's Library</h1>
 
-<section>
-    <h2>CBT - practical</h2>
-    <p>Here are available Computer based test, each test cost 100 coins</p>
-    <table>
-        <thead>
-            <tr>
-                <td>Course</td>
-                <td>All questions</td>
-                <td>Actions</td>
-            </tr>
-        </thead>
-        <tbody>
-        {% for c in courses %}
-        <tr>
-            <td>{{c.name}}</td>
-            <td>{{c.questions.count}}</td>
-            <td><a href="{% url "cbt_test" c.id %}">Run</a> | <a href="#">Delete</a></td>
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</section>
+        <!-- Welcome Message Section -->
+        <section>
+            <h2>Welcome Message:</h2>
+            <p>
+                Welcome to Babuga's Library, your premier destination for computer-based testing.
+                Prepare for your exams with confidence and success.
+            </p>
+        </section>
 
-{% endblock content %}
+        <!-- Brief Introduction Section -->
+        <section>
+            <h2>Brief Introduction:</h2>
+            <p>
+                Babuga's Library provides a wide range of tests and quizzes to help you excel in your studies and assessments.
+                Whether you're preparing for an important exam or simply testing your knowledge, we've got you covered.
+            </p>
+        </section>
+
+        <!-- Instructions Section -->
+        <section>
+            <h2>Instructions:</h2>
+            <p>
+                Before you begin, please read the following instructions carefully:
+            </p>
+            <ol>
+                <li>Ensure you have a stable internet connection.</li>
+                <li>You will have a specific time limit for each test. Be mindful of the timer.</li>
+                <li>Select your answers by clicking on the options provided.</li>
+                <li>Review your answers before submitting if time allows.</li>
+            </ol>
+        </section>
+
+        <!-- Get Started Button -->
+        <a href="{% url 'cbt_tests' %}" class="get_started">Get Started</a>
+
+    </div>
+  
+{% endblock content %}  

@@ -1,0 +1,94 @@
+header {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 10px 25px 10px;
+    z-index: 999;
+    gap: 5px;
+    background-color: black;
+    color: white;
+}
+
+header h2 {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+header h2 img,
+header .hamburger img {
+    height: 35px;
+    background-color: white;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+header nav.hidden {
+    display: none;
+}
+
+header .hamburger {
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    text-align: end;
+}
+
+header .header-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+}
+
+header .header-links a {
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+header .header-links a:first-of-type {
+    padding: 10px;
+    background-color: var(--primary-color);
+    font-size: 17px;
+    border-radius: 4px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    flex: 1;
+    justify-content: center;
+}
+
+header .header-links a img {
+    height: 35px;
+    background-color: white;
+    border-radius: 4px;
+    padding: 7px;
+}
+
+header > a {
+    height: 25px;
+    margin: 0 5px;
+}
+.nav p{
+    color: black !important ;
+}
+.nav{
+    display: flex;
+    flex-direction: column;
+    background: white;
+    height: 100%;
+    width: 50%;
+    position: relative;
+    right: 0;
+    gap: 10px;
+    padding: 5px;
+}
+.nav a{
+    font-weight: bold;
+    color: black;
+    font-size: 17px;
+    border: .5px solid lightgray;
+    padding: 10px;
+    border-radius: 4px;
+    background: white;
+}

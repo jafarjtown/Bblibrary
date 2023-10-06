@@ -20,6 +20,7 @@
             <a href="{% url "course" %}">Courses</a>
             <a href="{% url "make_request" %}">make a request</a>
             {% if user.is_authenticated %}
+            <a href="{% url "cbt" %}">CBT practicals</a>
             <a href="{% url "account_settings" %}">Account setting</a>
             <a href="{% url "user_logout" %}">Log out</a>
             {% else %}
