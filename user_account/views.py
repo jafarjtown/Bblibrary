@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .models import Account, User, Plan, PlanType
+from .models import Account, User
 from app.models import Request 
 from django.utils import timezone
 from datetime import datetime
@@ -61,21 +61,6 @@ def account_settings(request):
     
     return render(request, "account/settings.html", context)
 
-# Update subscription view
-def update_subscription(request):
-    if request.method == "POST":
-        user = request.user
-        plan_id = int(request.POST.get("plan"))
-        print(plan_id)
-        planType = PlanType.objects.get(id=plan_id)
-        plan,_ = Plan.objects.get_or_create(user=user)
-        plan.type = planType
-        #plan.last_due = timezone.now()
-        
-        plan.save()
-        messages.success(request, f"You have subscribed to {plan.type.name}")
-    
-    return redirect("account_settings")
 
 # Delete account view
 def delete_account(request):
@@ -117,3 +102,11 @@ def update_user(request):
         user.save()
         messages.success(request, "Account updated successfully")
     return redirect("account_settings")
+
+def wallet(request):
+    if request.method == "POST":
+        amount = int(request.POST.get("amount"))
+        user = request.user
+        user.account.coins += amount
+        user.account.save()
+    return render(request, "account/buy_coins.html")

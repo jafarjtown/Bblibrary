@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse 
 from .models import Course as cbt, Question, Option, EssayTest, EssayQuestion
 from .forms import QuestionForm, OptionForm
+from user_account.decorators import has_enough_coins, subtract_coins
 import random as r
 import json
 # Create your views here.
@@ -9,7 +10,9 @@ import json
 def index(request):
     courses = cbt.objects.all()
     return render(request, "cbt/index.html", {"courses": courses})
-    
+
+@has_enough_coins(100)
+@subtract_coins(100)
 def cbt_test(request, id=None):
     course = cbt.objects.get(id=id)
     questions= list(course.questions.all())
@@ -124,6 +127,8 @@ def cbt_create_course_essay(request):
         return redirect("cbt_add_qs", course=course.id)
     return render(request, 'cbt/upload_essay_qs.html')
     
+@has_enough_coins(50)
+@subtract_coins(50)    
 def cbt_test_essay(request, id=None):
     course = EssayTest.objects.get(id=id)
     questions= list(course.questions.all())
