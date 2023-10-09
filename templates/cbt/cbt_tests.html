@@ -1,47 +1,96 @@
 {% extends "base.html" %}
 
 {% block content %}
-
 <section>
-    <h2>CBT - practical</h2>
+    <p></p>
+</section>
+<section>
+    <h2>Objectives</h2>
     <p>Here are available Computer based test, each test cost 100 coins</p>
-    <table>
-        <thead>
-            <tr>
-                <td>Course</td>
-                <td>All questions</td>
-                <td>Actions</td>
-            </tr>
-        </thead>
-        <tbody>
-        {% for c in obj %}
-        <tr>
-            <td>{{c.name}}</td>
-            <td>{{c.questions.count}}</td>
-            <td><a href="{% url "cbt_test" c.id %}">Run</a> | <a href="#">Delete</a></td>
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="form-div">
+        <label>Subject :
+        <select obj-sub>
+             {% for c in obj %}
+             <option value="{{c.id}}">{{c.name}}</option>
+             {% endfor %}
+        </select></label>
+        <label>Time :
+        <select obj-time>
+            <option>20 minutes</option>
+            <option>35 minutes</option>
+            <option>40 minutes</option>
+        </select></label>
+        <br>
+        <button class="submit-btn" obj-btn>Proceed</button>
+    </div>
 </section>
+<div class="hr"></div>
 <section>
-    <h2>Essay courses CBT - practical</h2>
+    <h2>Essays</h2>
     <p>Here are available Computer based test, each test cost 50 coins</p>
-    <table>
-        <thead>
-            <tr>
-                <td>Course</td>
-                <td>Actions</td>
-            </tr>
-        </thead>
-        <tbody>
-        {% for c in ess %}
-        <tr>
-            <td>{{c.topic}}</td>
-            <td><a href="{% url "cbt_test_essay" c.id %}">Run</a> | <a href="#">Delete</a></td>
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <div class="form-div">
+        <label essay-sub>Subject :
+        <select>
+             {% for c in ess %}
+             <option value="{{c.id}}">{{c.topic}}</option>
+             {% empty %}
+             <option>Coming soon</option>
+             {% endfor %}
+        </select></label>
+        <label>Time :
+        <select essay-time>
+            <option>20 minutes</option>
+            <option>35 minutes</option>
+            <option>40 minutes</option>
+        </select></label>
+        <br>
+        <button class="submit-btn" essay-btn>Proceed</button>
+    </div>
 </section>
+<div class="hr"></div>
+<section>
+    <h2>Fill in the space</h2>
+    <p>Here are available Computer based test, each test cost 50 coins</p>
+        <div class="form-div">
+        <label fill-sub>Subject :
+        <select>
+             <option>Coming soon</option>
+        </select></label>
+        <label>Number of questions:
+        <select fill-time>
+            <option>20 questions</option>
+            <option>35 questions</option>
+            <option>40 questions</option>
+        </select></label>
+        <br>
+    </div>
+</section>
+<div class="hr"></div>
+<section>
+    <h2>True and False</h2>
+    <p>Here are available Computer based test, each test cost 50 coins</p>
+        <div class="form-div">
+        <label tf-sub>Subject :
+        <select>
+             <option>Coming soon</option>
+        </select></label>
+        <label>Number of questions:
+        <select fill-time>
+            <option>20 questions</option>
+            <option>35 questions</option>
+            <option>40 questions</option>
+        </select></label>
+        <br>
+    </div>
+</section>
+<script>
+    const objSub = document.querySelector("[obj-sub]")
+    const objTime = document.querySelector("[obj-time]")
+    const objBtn = document.querySelector("[obj-btn]")
+    
+    objBtn.onclick = () => {
+        if(objSub.value.toLowerCase() == "coming soon") return
+        location.href = `/cbt/${objSub.value}/test`
+    }
+</script>
 {% endblock content %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section>
+    <h3>{{course}} True and False questions</h3>
+    <div class="hr"></div>
+    <form>
+    {% for q in questions %}
+    <div trs>
+        <h4>{{q.question_text}}</h4>
+        <div>
+            <label>True <input type="radio" name="{{q.id}}" id=""></label>
+            <label>False <input type="radio" name="{{q.id}}" id=""></label>
+        </div>
+        <p style="display:none;" ans>Correct Answer : {{q.correct_answer}}</p>
+    </div>
+    {% endfor %}
+    </form>
+</section>
+{% endblock %}
+{% block script %}
+<script>
+    const questions = document.querySelectorAll("[trs]")
+    questions.forEach(q=>{
+        const radios = q.querySelectorAll("input")
+        radios.forEach(r=>{
+            r.addEventListener("change", ()=>{
+                let ans = q.querySelector("[ans]")
+                ans.style.display = "block"
+            })
+        })
+    })
+</script>
+{% endblock script %}

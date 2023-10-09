@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect 
 from django.http import JsonResponse 
-from .models import Course as cbt, Question, Option, EssayTest, EssayQuestion
+from .models import Course as cbt, Question, Option, EssayTest, EssayQuestion,TrueFalseQuestion, TrueFalseCourse
 from .forms import QuestionForm, OptionForm
 from user_account.decorators import has_enough_coins, subtract_coins
 import random as r
@@ -16,8 +16,8 @@ def tests(request):
     ess = EssayTest.objects.all()
     return render(request, "cbt/cbt_tests.html", {"obj": obj, "ess": ess})
 
-@has_enough_coins(100)
-@subtract_coins(100)
+#@has_enough_coins(100)
+#@subtract_coins(100)
 def cbt_test(request, id=None):
     course = cbt.objects.get(id=id)
     questions= list(course.questions.all())
@@ -140,3 +140,19 @@ def cbt_test_essay(request, id=None):
     r.shuffle(questions)
     return render(request, "cbt/cbt_test_essay.html", {"course": course, "qs": questions[:6]})
     
+
+def true_false_test(request):
+    tfs = TrueFalseCourse.objects.all()
+    return render(request, "cbt/tf.html", {"tfs":tfs})
+    
+def true_false_result(request, tid):
+    tf = TrueFalseCourse.objects.get(id=tid)
+    if request.method == "POST":
+        attempts = dict(request.POST)
+        del attempts["csrfmiddlewaretoken"]
+        for qid, ans in attempts.items():
+            ans = True if ans == true else False
+            qq = tf.questions.get(id = qid)
+    questions= list(tf.questions.all())
+    r.shuffle(questions)
+    return render(request, 'cbt/tfr.html', {"questions": questions, "course":tf.name})

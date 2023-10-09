@@ -10,7 +10,9 @@ from .utils import FileComparator
 
 def index(request):
     return render(request, 'app/index.html')
- 
+
+def about(request):
+    return render(request, 'about.html')
 @login_required   
 def upload(request):
     context = {

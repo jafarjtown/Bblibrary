@@ -1,50 +1,54 @@
-{% load static %}
-<footer>
-    <h2><img src="{% static "imgs/archive.png" %}" alt=""> Babuga's Library</h2>
-    <p>Get reading resources and past questions all in here.</p>
-    <div class="hr"></div>
-    <div class="sponsors">
-        <div>
-            <img src="{% static "imgs/us~2.jpeg" %}" alt="Jafar picture">
-            <small>Jafaru Idris Tesla and Babuga Umar Baga</small>
+  <!-- Site footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <h6>About Babuga's Library</h6>
+            <p class="text-justify">Babuga's Library is a platform dedicated to ensuring Ahmadu Bello University students have swift access to a wide range of educational materials. Their mission is to provide timely access to reading materials, while their vision is to create a one-stop platform for all course resources. With approximately 5,000 materials available in various formats like PDFs, videos, images, and audios, Babuga's Library is committed to empowering students on their academic journey.
+            </p>
+          </div>
+
+          <div class="col-xs-6 col-md-3">
+            <h6>Categories</h6>
+            <ul class="footer-links">
+              <li><a href="http://scanfcode.com/category/c-language/">C</a></li>
+              <li><a href="http://scanfcode.com/category/front-end-development/">UI Design</a></li>
+              <li><a href="http://scanfcode.com/category/back-end-development/">PHP</a></li>
+              <li><a href="http://scanfcode.com/category/java-programming-language/">Java</a></li>
+              <li><a href="http://scanfcode.com/category/android/">Android</a></li>
+              <li><a href="http://scanfcode.com/category/templates/">Templates</a></li>
+            </ul>
+          </div>
+
+          <div class="col-xs-6 col-md-3">
+            <h6>Quick Links</h6>
+            <ul class="footer-links">
+              <li><a href="http://scanfcode.com/about/">About Us</a></li>
+              <li><a href="http://scanfcode.com/contact/">Contact Us</a></li>
+              <li><a href="http://scanfcode.com/contribute-at-scanfcode/">Contribute</a></li>
+              <li><a href="http://scanfcode.com/privacy-policy/">Privacy Policy</a></li>
+              <li><a href="http://scanfcode.com/sitemap/">Sitemap</a></li>
+            </ul>
+          </div>
         </div>
-        
-    </div>
-    <p>The faces behind this platform.</p>
-    {% include "app/libs/buy_tea.html" %}
-    <div class="hr"></div>
-    <h4>Useful links</h4>
-    <ul>
-        <li>
-            <a href="/">Home</a>
-        </li>
-        <li>
-            <a href="{% url "material_list" %}">Materials</a>
-        </li>
-        <li>
-            <a href="{% url "upload" %}">Upload</a>
-        </li>
-        <li>
-            <a href="{% url "search" %}">Search</a>
-        </li>
-    </ul>
-    <div class="hr"></div>
-    <div class="form-div">
-        <p>Register for our Newsletter </p>
-        <form method="post" action="{% url "register_newsletter" %}">
-            {% csrf_token %}
-            <label>
-                
-                <input type="email" name="email" placeholder="Email" required>
-                <button class="submit-btn">submit</button>
-            </label>
-        </form>
-    </div>
-    <div>
-        This website is made useful through the contribution of the students, all resources are uploaded by students and administrators of the platform. 
-    </div>
-    <p><b>Disclaimer!</b> The website do not have any ownership of any resources found in the platform.</p>
-    
-    <div>2023 copyright</div>
-    <div class="hr"></div>
+        <hr>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-sm-6 col-xs-12">
+            <p class="copyright-text">Copyright &copy; 2017 All Rights Reserved by 
+         <a href="#">Scanfcode</a>.
+            </p>
+          </div>
+
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <ul class="social-icons">
+              <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+              <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+              <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+              <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>   
+            </ul>
+          </div>
+        </div>
+      </div>
 </footer>

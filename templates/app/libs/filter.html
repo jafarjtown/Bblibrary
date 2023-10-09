@@ -2,7 +2,6 @@
 <div class="form-div">
     <script src="{% static "js/load_courses.js" %}" defer></script>
         <form>
-        <div>
             <label> Department:
             <select name="department" department>
                 <option value="null">--Select Department--</option>
@@ -22,8 +21,6 @@
                {% endfor %}
             </select>
             </label>
-        </div>
-        <div>
             <label> Course :
             <select name="course" course>
                 <option value="null">--Select Course--</option>
@@ -38,7 +35,6 @@
             </label>
             {% endif %}
             
-        </div>
          <div>
              <button class="submit-btn">{% if btn %}{{btn}}{% else %} Filter {% endif %}</button></div>
         

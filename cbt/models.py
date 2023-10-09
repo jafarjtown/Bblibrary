@@ -21,3 +21,34 @@ class EssayTest(models.Model):
 
 class EssayQuestion(models.Model):
     question = models.TextField()
+
+
+
+class FillInTheBlanksQuestion(models.Model):
+    question_text = models.CharField(max_length=200)
+    blanks = models.TextField(help_text="Enter blanks separated by [BLANK]. Example: The capital of [BLANK] is [BLANK].")
+    correct_answers = models.TextField(help_text="Enter correct answers separated by commas. Example: Paris, France")
+    
+    def get_blanks_list(self):
+        return self.blanks.split("[BLANK]")
+
+    def get_correct_answers_list(self):
+        return [answer.strip() for answer in self.correct_answers.split(",")]
+
+    def is_answer_correct(self, user_answers):
+        correct_answers = self.get_correct_answers_list()
+        return user_answers == correct_answers
+
+    def __str__(self):
+        return self.question_text
+
+class TrueFalseCourse(models.Model):
+    name = models.CharField(max_length=200)     
+        
+class TrueFalseQuestion(models.Model):
+    course = models.ForeignKey(TrueFalseCourse, on_delete=models.CASCADE, related_name="questions")
+    question_text = models.CharField(max_length=500)
+    correct_answer = models.BooleanField()
+
+    def __str__(self):
+        return self.question_text

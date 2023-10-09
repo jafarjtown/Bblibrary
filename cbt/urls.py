@@ -13,4 +13,6 @@ urlpatterns = [
     path('courses/add/upload/', views.add_by_upload, name="cbt_course_by_upload"),
     path('courses/essay/upload/', views.add_by_upload_essay, name="cbt_course_by_upload_essay"),
     path('essay', views.essay_cbt, name="essay_cbt"),
+    path('true-false', views.true_false_test, name="true_false_test"),
+    path('true-false/test/<int:tid>', views.true_false_result, name="true_false_result"),
 ]
