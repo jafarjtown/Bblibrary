@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% block script %}
+<script src="{% static "js/load_courses.js" %}" defer>
+    
+</script>
+{% endblock script %}
+{% block content %}
+<section>
+        <h1>Past Questions</h1>
+        <ul>
+        {% for pq in pqs %}
+            <li>{{pq.course.code}} - {{pq.year.year}} [<a href="{{pq.pq.url}}">Download</a>]</li>
+        {% endfor %}
+        </ul>
+        
+</section>
+
+
+{% endblock content %}

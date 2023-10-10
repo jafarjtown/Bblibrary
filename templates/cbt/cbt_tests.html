@@ -4,93 +4,161 @@
 <section>
     <p></p>
 </section>
-<section>
+<section obj>
     <h2>Objectives</h2>
     <p>Here are available Computer based test, each test cost 100 coins</p>
     <div class="form-div">
         <label>Subject :
-        <select obj-sub>
+        <select sub>
              {% for c in obj %}
              <option value="{{c.id}}">{{c.name}}</option>
              {% endfor %}
         </select></label>
         <label>Time :
-        <select obj-time>
+        <select time>
             <option>20 minutes</option>
             <option>35 minutes</option>
             <option>40 minutes</option>
         </select></label>
         <br>
-        <button class="submit-btn" obj-btn>Proceed</button>
+        <button class="submit-btn" btn>Proceed</button>
     </div>
 </section>
 <div class="hr"></div>
-<section>
+<section essay>
     <h2>Essays</h2>
     <p>Here are available Computer based test, each test cost 50 coins</p>
         <div class="form-div">
-        <label essay-sub>Subject :
-        <select>
+        <label>Subject :
+        <select sub>
              {% for c in ess %}
              <option value="{{c.id}}">{{c.topic}}</option>
              {% empty %}
              <option>Coming soon</option>
              {% endfor %}
         </select></label>
-        <label>Time :
-        <select essay-time>
-            <option>20 minutes</option>
-            <option>35 minutes</option>
-            <option>40 minutes</option>
+        <label>Questions :
+        <select time>
+            <option>3 questions</option>
+            <option>6 questions</option>
+            <option>9 questions</option>
         </select></label>
         <br>
-        <button class="submit-btn" essay-btn>Proceed</button>
+        <button class="submit-btn" btn>Proceed</button>
     </div>
 </section>
 <div class="hr"></div>
-<section>
+<section fill>
     <h2>Fill in the space</h2>
     <p>Here are available Computer based test, each test cost 50 coins</p>
         <div class="form-div">
-        <label fill-sub>Subject :
-        <select>
+        <label>Subject :
+        <select sub>
+             {% for c in fill %}
+             <option value="{{c.id}}">{{c.name}}</option>
+             {% empty %}
              <option>Coming soon</option>
+             {% endfor %}
         </select></label>
         <label>Number of questions:
-        <select fill-time>
-            <option>20 questions</option>
-            <option>35 questions</option>
-            <option>40 questions</option>
+        <select time>
+            <option>10 questions</option>
+            <option>15 questions</option>
+            <option>25 questions</option>
         </select></label>
+        
         <br>
+        <button class="submit-btn" btn>Proceed</button>
     </div>
 </section>
 <div class="hr"></div>
-<section>
+<section trf>
     <h2>True and False</h2>
     <p>Here are available Computer based test, each test cost 50 coins</p>
         <div class="form-div">
-        <label tf-sub>Subject :
-        <select>
+        <label>Subject :
+        <select sub>
+             {% for c in trf %}
+             <option value="{{c.id}}">{{c.name}}</option>
+             {% empty %}
              <option>Coming soon</option>
-        </select></label>
-        <label>Number of questions:
-        <select fill-time>
-            <option>20 questions</option>
-            <option>35 questions</option>
-            <option>40 questions</option>
+             {% endfor %}
         </select></label>
         <br>
+        <button class="submit-btn" btn>Proceed</button>
+    </div>
+</section>
+<div class="hr"></div>
+<section mm>
+    <h2>Match making</h2>
+    <p>Here are available Computer based test, each test cost 50 coins</p>
+        <div class="form-div">
+        <label>Subject :
+        <select sub>
+             {% for c in mm %}
+             <option value="{{c.id}}">{{c.topic}}</option>
+             {% empty %}
+             <option>Coming soon</option>
+             {% endfor %}
+        </select></label>
+        <br>
+        <button class="submit-btn" btn>Proceed</button>
+    </div>
+</section>
+<div class="hr"></div>
+<section timeBase>
+    <h2>Time based</h2>
+    <p>Here are available Computer based test, each test cost 50 coins</p>
+        <div class="form-div">
+        <label>Subject :
+        <select sub>
+             {% for c in obj %}
+             <option value="{{c.id}}">{{c.name}}</option>
+             {% empty %}
+             <option>Coming soon</option>
+             {% endfor %}
+        </select></label>
+        <label>Time :
+        <select time>
+            <option value="15">15 minutes</option>
+            <option value="20">20 minutes</option>
+            <option value="35">35 minutes</option>
+        </select></label>
+        <br>
+        <button class="submit-btn" btn>Proceed</button>
     </div>
 </section>
 <script>
-    const objSub = document.querySelector("[obj-sub]")
-    const objTime = document.querySelector("[obj-time]")
-    const objBtn = document.querySelector("[obj-btn]")
+    const obj = document.querySelector("[obj]")
+    const fill = document.querySelector("[fill]")
+    const trf = document.querySelector("[trf]")
+    const essay = document.querySelector("[essay]")
+    const mm = document.querySelector("[mm]")
+    const tb = document.querySelector("[timeBase]")
     
-    objBtn.onclick = () => {
-        if(objSub.value.toLowerCase() == "coming soon") return
-        location.href = `/cbt/${objSub.value}/test`
+    
+    clickToPlay(obj, "objectives")
+    clickToPlay(fill, "fill-in-blank")
+    clickToPlay(trf, "true-false")
+    clickToPlay(essay, "essay")
+    clickToPlay(mm, "match-making")
+    clickToPlay(tb, "time-base", time=true)
+    
+    
+    function clickToPlay(elem, url, time=false){
+        const objSub = elem.querySelector("[sub]")
+        const objTime = elem.querySelector("[time]")
+        const objBtn = elem.querySelector("[btn]")
+    
+        objBtn.onclick = () => {
+            if(objSub.value.toLowerCase() == "coming soon") {
+                alert("This Test not available")
+                return 
+            }
+            let href = `/cbt/${url}/${objSub.value}`
+            if(time) href+=`?t=${objTime.value}`
+            location.href = href
+    }
     }
 </script>
 {% endblock content %}

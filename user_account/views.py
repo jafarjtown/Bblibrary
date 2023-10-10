@@ -51,7 +51,7 @@ def user_register(request):
 
 # Account settings view
 def account_settings(request):
-    context = {"plans":PlanType.objects.all()}
+    context = {}
     if request.method == "POST":
         user = request.user
         user.last_name = request.POST.get("last_name")

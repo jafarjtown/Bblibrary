@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect 
 from django.http import JsonResponse 
-from .models import Course as cbt, Question, Option, EssayTest, EssayQuestion,TrueFalseQuestion, TrueFalseCourse
+from .models import Course as cbt, Question, Option, EssayTest, EssayQuestion,TrueFalseQuestion, TrueFalseCourse, FillInTheBlank
 from .forms import QuestionForm, OptionForm
 from user_account.decorators import has_enough_coins, subtract_coins
 import random as r
@@ -14,7 +14,9 @@ def index(request):
 def tests(request):
     obj = cbt.objects.all()
     ess = EssayTest.objects.all()
-    return render(request, "cbt/cbt_tests.html", {"obj": obj, "ess": ess})
+    fill = FillInTheBlank.objects.all()
+    trfs = TrueFalseCourse.objects.all()
+    return render(request, "cbt/cbt_tests.html", {"obj": obj, "ess": ess, "fill":fill, "trf":trfs})
 
 #@has_enough_coins(100)
 #@subtract_coins(100)
@@ -23,6 +25,19 @@ def cbt_test(request, id=None):
     questions= list(course.questions.all())
     r.shuffle(questions)
     return render(request, "cbt/cbt_test.html", {"course": course, "qs": questions[:40]})
+    
+def cbt_time_base(request, id=None):
+    time = int(request.GET.get("t", 15))
+    if time == 15 or time < 20:
+        t = 30
+    elif time == 20 or time < 35:
+        t = 40
+    else:
+        t = 60
+    course = cbt.objects.get(id=id)
+    questions= list(course.questions.all())
+    r.shuffle(questions)
+    return render(request, "cbt/cbt_time_base.html", {"course": course, "qs": questions[:t], "time":time})
     
     
 def cbt_test_result(request, id):
@@ -132,8 +147,8 @@ def cbt_create_course_essay(request):
         return redirect("cbt_add_qs", course=course.id)
     return render(request, 'cbt/upload_essay_qs.html')
     
-@has_enough_coins(50)
-@subtract_coins(50)    
+#@has_enough_coins(50)
+#@subtract_coins(50)    
 def cbt_test_essay(request, id=None):
     course = EssayTest.objects.get(id=id)
     questions= list(course.questions.all())
@@ -156,3 +171,8 @@ def true_false_result(request, tid):
     questions= list(tf.questions.all())
     r.shuffle(questions)
     return render(request, 'cbt/tfr.html', {"questions": questions, "course":tf.name})
+
+
+def fill_in_blank(request, id):
+    fill = FillInTheBlank.objects.get(id=id)
+    return render(request, 'cbt/fill-in-blank.html', {"fill":fill})

@@ -22,10 +22,12 @@ class EssayTest(models.Model):
 class EssayQuestion(models.Model):
     question = models.TextField()
 
+class FillInTheBlank(models.Model):
+    name = models.CharField(max_length=255)
 
 
 class FillInTheBlanksQuestion(models.Model):
-    question_text = models.CharField(max_length=200)
+    course = models.ForeignKey(FillInTheBlank, on_delete=models.CASCADE, related_name="questions")
     blanks = models.TextField(help_text="Enter blanks separated by [BLANK]. Example: The capital of [BLANK] is [BLANK].")
     correct_answers = models.TextField(help_text="Enter correct answers separated by commas. Example: Paris, France")
     
@@ -40,7 +42,11 @@ class FillInTheBlanksQuestion(models.Model):
         return user_answers == correct_answers
 
     def __str__(self):
-        return self.question_text
+        return self.blanks
+    
+    def parse_html(self):
+        return self.blanks.replace('[BLANK]', '<input type="text" name="answer" />')
+        
 
 class TrueFalseCourse(models.Model):
     name = models.CharField(max_length=200)     

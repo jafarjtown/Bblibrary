@@ -16,6 +16,7 @@
           <li><a href="{% url 'material_list' %}">Materials</a></li>
           <li><a href="{% url 'upload' %}">Upload</a></li>
           <li><a href="{% url 'course' %}">Courses</a></li>
+          <li><a href="{% url 'pqs' %}">Past Questions</a></li>
           <li><a href="{% url 'search' %}">Search</a></li>
         </ul>
       </li>
@@ -24,9 +25,9 @@
         <input type="checkbox" id="showDropUser">
         <label for="showDropUser" class="mobile-item">User Actions</label>
         <ul class="drop-menu">
-          <li><a href="{% url 'material_list' %}">Make a request</a></li>
-          <li><a href="{% url 'upload' %}">Account Settings</a></li>
-          <li><a href="{% url 'course' %}">Logout</a></li>
+          <li><a href="{% url 'make_request' %}">Make a request</a></li>
+          <li><a href="{% url 'account_settings' %}">Account Settings</a></li>
+          <li><a href="{% url 'user_logout' %}">Logout</a></li>
         </ul>
       </li>
       <li>

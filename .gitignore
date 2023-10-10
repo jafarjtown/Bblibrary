@@ -1,3 +1,4 @@
 media
 materials
 staticfiles
+db.sqlite3

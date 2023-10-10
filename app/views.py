@@ -1,7 +1,7 @@
 # app/views.py
 from django.shortcuts import render,redirect
 from django.http import JsonResponse 
-from .models import Material, Department , Course, TimeTable, CourseComment , FlaggedIssue, Newsletter
+from .models import Material, Department , Course, TimeTable, CourseComment , FlaggedIssue, Newsletter,PastQuestion
 from django.contrib.auth.decorators import login_required
 
 from django.contrib import messages
@@ -170,3 +170,9 @@ def register_newsletter(request):
         n.save()
         
     return render(request, "app/email.html") 
+
+
+def past_questions(request):
+    pqs = PastQuestion.objects.all().order_by("course__code")
+    return render(request, 'app/pqs.html', {"pqs":pqs})
+    
