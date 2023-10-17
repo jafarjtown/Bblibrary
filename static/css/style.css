@@ -189,6 +189,9 @@ footer .form-div label{
     border: none;
     border-radius: 4px;
 }
+.form-div .submit-btn[disabled]{
+    background-color: gray;
+}
 .form-div input[type="checkbox"]{
     width: fit-content;
 }

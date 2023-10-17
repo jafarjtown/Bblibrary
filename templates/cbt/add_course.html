@@ -7,9 +7,14 @@
         <form method="post">
             {% csrf_token %}
             <div>
-                <label>Course Name <input type="text" name="name" required></label>
+                <label>Course Name <input type="text" name="name" list="courses" required></label>
+                <datalist id="courses">
+                    {% for c in courses %}
+                        <option>{{c.name}}</option>
+                    {% endfor %}
+                </datalist>
             </div>
-            <button class="submit-btn">Create</button>
+            <button class="submit-btn">Create or update</button>
         </form>
         <div class="hr"></div>
         <p>You can upload a json file in this format</p>

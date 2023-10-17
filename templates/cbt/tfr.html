@@ -1,34 +1,45 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 <section>
-    <h3>{{course}} True and False questions</h3>
-    <div class="hr"></div>
-    <form>
-    {% for q in questions %}
-    <div trs>
-        <h4>{{q.question_text}}</h4>
-        <div>
-            <label>True <input type="radio" name="{{q.id}}" id=""></label>
-            <label>False <input type="radio" name="{{q.id}}" id=""></label>
-        </div>
-        <p style="display:none;" ans>Correct Answer : {{q.correct_answer}}</p>
-    </div>
-    {% endfor %}
-    </form>
+    <div questions style="display:flex;gap:2px;flex-wrap:wrap"></div>
 </section>
-{% endblock %}
+<section>
+    <h2>{{course}} Test</h2>
+    <p>This is a test for the course {{ course }}. Please answer the following questions.</p>
+    <div class="form-div">
+        <form>
+        {% csrf_token %}
+        <p>Scores : <span score></span></p>
+        {% for q in questions %}
+        <div style="flex-direction:column;display:none" question id="q{{forloop.counter}}">
+            <div>
+                
+               <button type="button" class="submit-btn" prev {% if forloop.counter == 1 %}disabled{% endif %}>Previous</button>
+                
+               
+                <button type="button" class="submit-btn" next  {% if questions|last == q %} disabled{% endif %}>Next</button>
+                
+            </div>
+            <p>{{forloop.counter}}. {{q.question_text}}</p>
+            <div>
+                <ul>
+                    <li>True <input type="radio" name="{{q.id}}" value="True">
+                    </li>
+                    <li>False <input type="radio" name="{{q.id}}" value="False"></li>
+                </ul>
+            </div>
+            <input type="text" value="{{q.correct_answer}}" style="display:none" correct_answer>
+            <p class="correct-answer" style="display:none" display_correct_answer>Correct Answer : {{q.correct_answer}}</p>
+            
+        </div>
+        {% endfor %}
+    </form>
+    </div>
+    
+</section>
+
+{% endblock content %}
 {% block script %}
-<script>
-    const questions = document.querySelectorAll("[trs]")
-    questions.forEach(q=>{
-        const radios = q.querySelectorAll("input")
-        radios.forEach(r=>{
-            r.addEventListener("change", ()=>{
-                let ans = q.querySelector("[ans]")
-                ans.style.display = "block"
-            })
-        })
-    })
-</script>
+<script src="{% static "js/cbt.js" %}"></script>
 {% endblock script %}

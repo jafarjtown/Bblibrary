@@ -9,6 +9,12 @@ class Course(models.Model):
 class Question(models.Model):
     question = models.TextField()
     options = models.ManyToManyField("Option", blank=True)
+    
+    @property
+    def correct_answer(self):
+        for o in self.options.all():
+            if o.is_correct:
+                return o
         
 class Option(models.Model):
     value = models.CharField(max_length=500)

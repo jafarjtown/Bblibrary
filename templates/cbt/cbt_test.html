@@ -6,56 +6,37 @@
 </section>
 <section>
     <h2>{{course.name}} Test</h2>
-    <p>This is just a playground or exercising place.</p>
-    
+    <p>This is a test for the course {{ course.name }}. Please answer the following questions.</p>
     <div class="form-div">
-        <form method="post" action="{% url "cbt_test_result" course.id %}">
+        <form>
         {% csrf_token %}
-        {% if result %}
-        <p>Here's what you score : {{result.score}}/40 | <a href="{% url "cbt_test" course.id %}">Retry</a></p>
-        {% for q in qs %}
-                <div style="flex-direction:column" >
-            <h4>{{forloop.counter}}. {{q.q.question}}</h4>
-            <ol style="padding-left: 20px" type="A">
-                
-            {% for o in q.q.options.all %}
-            <label>
-            <li style="{% if o.id == q.select and o.is_correct %} background: lightgreen;{% elif o.is_correct %} background: orange;{% elif q.select == o.id %} background:red;{% endif %}padding:5px;margin-bottom:4px">
-            {{o.value}}
-            </li>
-            </label>
-            {% endfor %}
-            </ol>
-        </div>
-        {% endfor %}
-        {% else %}
+        <p>Scores : <span score></span></p>
         {% for q in qs %}
         <div style="flex-direction:column;display:none" question id="q{{forloop.counter}}">
-            <h4>{{forloop.counter}}. {{q.question}}</h4>
+            <div>
+                
+               <button type="button" class="submit-btn" prev {% if forloop.counter == 1 %}disabled{% endif %}>Previous</button>
+                
+               
+                <button type="button" class="submit-btn" next  {% if qs.last == q %} disabled{% endif %}>Next</button>
+                
+            </div>
+            <p>{{forloop.counter}}. {{q.question}}</p>
             <ol style="padding-left: 20px" type="A">
                 
             {% for o in q.options.all %}
             <label>
             <li style="padding:5px">
             <input type="radio" name="{{q.id}}" value="{{o.id}}"> {{o.value}}
-            </li><!--  -->
+            </li>
             </label>
             {% endfor %}
             </ol>
-            <div>
-                
-                <button type="button" class="submit-btn" prev {% if forloop.counter == 1 %}disabled{% endif %}>Previous</button>
-                
-               
-                <button type="button" class="submit-btn" next  {% if qs.last == q %}disabled{% endif %}>Next</button>
-                
-            </div>
+            <input type="text" value="{{q.correct_answer.id}}" style="display:none" correct_answer>
+            <p class="correct-answer" style="display:none" display_correct_answer>Correct Answer : {{q.correct_answer.value}}</p>
+            
         </div>
         {% endfor %}
-        {% endif %}
-        {% if result is None %}
-        <button class="submit-btn">Submit/check</button>
-        {% endif %}
     </form>
     </div>
     

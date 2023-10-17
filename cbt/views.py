@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect 
 from django.http import JsonResponse 
 from .models import Course as cbt, Question, Option, EssayTest, EssayQuestion,TrueFalseQuestion, TrueFalseCourse, FillInTheBlank
-from .forms import QuestionForm, OptionForm
+from .forms import QuestionForm, OptionForm, TrueFalseQuestionForm
+
 from user_account.decorators import has_enough_coins, subtract_coins
 import random as r
 import json
@@ -21,10 +22,10 @@ def tests(request):
 #@has_enough_coins(100)
 #@subtract_coins(100)
 def cbt_test(request, id=None):
+    t = int(request.GET.get("t", 15))
     course = cbt.objects.get(id=id)
-    questions= list(course.questions.all())
-    r.shuffle(questions)
-    return render(request, "cbt/cbt_test.html", {"course": course, "qs": questions[:40]})
+    questions= course.questions.order_by("?").all()
+    return render(request, "cbt/cbt_test.html", {"course": course, "qs": questions[:t]})
     
 def cbt_time_base(request, id=None):
     time = int(request.GET.get("t", 15))
@@ -35,8 +36,7 @@ def cbt_time_base(request, id=None):
     else:
         t = 60
     course = cbt.objects.get(id=id)
-    questions= list(course.questions.all())
-    r.shuffle(questions)
+    questions= course.questions.order_by("?").all()
     return render(request, "cbt/cbt_time_base.html", {"course": course, "qs": questions[:t], "time":time})
     
     
@@ -59,11 +59,12 @@ def cbt_test_result(request, id):
 
 
 def cbt_create_course(request):
+    courses = cbt.objects.all()
     if request.method == "POST":
         name = request.POST.get("name")
-        course = cbt.objects.create(name=name)
+        course,_ = cbt.objects.get_or_create(name=name)
         return redirect("cbt_add_qs", course=course.id)
-    return render(request, 'cbt/add_course.html')
+    return render(request, 'cbt/add_course.html', {"courses":courses})
     
 def cbt_add_qs(request, course):
     course = cbt.objects.get(id=course)
@@ -172,7 +173,20 @@ def true_false_result(request, tid):
     r.shuffle(questions)
     return render(request, 'cbt/tfr.html', {"questions": questions, "course":tf.name})
 
+def create_true_false_question(request, course):
+    if request.method == 'POST':
+        course = TrueFalseCourse.objects.get(id=course)
+        form = TrueFalseQuestionForm(request.POST)
+        if form.is_valid():
+            trf = form.save(commit=False)
+            trf.course = course
+            trf.save()
+            return redirect('cbt_add_tr_qs', course=course.id)
+    else:
+        form = TrueFalseQuestionForm()
 
+    return render(request, 'cbt/true_question_form.html', {'form': form})
+    
 def fill_in_blank(request, id):
     fill = FillInTheBlank.objects.get(id=id)
     return render(request, 'cbt/fill-in-blank.html', {"fill":fill})

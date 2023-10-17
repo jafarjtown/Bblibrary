@@ -14,11 +14,11 @@
              <option value="{{c.id}}">{{c.name}}</option>
              {% endfor %}
         </select></label>
-        <label>Time :
+        <label>Questions :
         <select time>
-            <option>20 minutes</option>
-            <option>35 minutes</option>
-            <option>40 minutes</option>
+            <option value="20">20 questions</option>
+            <option value="35">35 questions</option>
+            <option value="40">40 questions</option>
         </select></label>
         <br>
         <button class="submit-btn" btn>Proceed</button>
@@ -137,7 +137,7 @@
     const tb = document.querySelector("[timeBase]")
     
     
-    clickToPlay(obj, "objectives")
+    clickToPlay(obj, "objectives", time=true)
     clickToPlay(fill, "fill-in-blank")
     clickToPlay(trf, "true-false")
     clickToPlay(essay, "essay")
