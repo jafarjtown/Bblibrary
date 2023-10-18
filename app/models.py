@@ -36,7 +36,7 @@ class Department(models.Model):
 
 class Material(models.Model):
     title= models.CharField(max_length=200, default="")
-    course = models.ForeignKey("Course", on_delete=models.CASCADE)
+    course = models.ForeignKey("Course", on_delete=models.CASCADE, related_name="materials")
     file = models.FileField(upload_to=materials_directory_path)
     comment= models.TextField()
     upload_on = models.DateTimeField(auto_now_add=True)

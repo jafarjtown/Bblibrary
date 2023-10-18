@@ -2,27 +2,14 @@ const get_m = document.querySelector("[get-m]");
 const list_dom = document.querySelector("[list]");
 
 get_m.addEventListener('click', () => {
-    let department = document.querySelector("[department]");
-    let course = document.querySelector("[course]");
-    let level = document.querySelector("[level]");
+    let input = document.querySelector("[input]");
+    
 
-    const d = department.value;
-    const c = course.value;
-    const l = level.value;
-    const q = [];
-
-    if (c !== 'null') {
-        q.push(`course__code=${c}`);
-    }
-    if (l !== 'null') {
-        q.push(`course__level=${l}`);
-    }
-    if (d !== 'null') {
-        q.push(`course__department__id=${d}`);
-    }
+    const s = input.value
+    const q = "search="+s
 
     list_dom.innerHTML = "<p>Loading ... Please wait</p>";
-    loadMaterials(q.join("&"));
+    loadMaterials(q);
 });
 
 async function loadMaterials(queries = null) {

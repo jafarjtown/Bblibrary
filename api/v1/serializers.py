@@ -10,7 +10,7 @@ class MaterialSerializer(serializers.HyperlinkedModelSerializer):
 class CourseSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Course
-        fields= ["url", "code", "title", "info"]
+        fields= ["url", "code", "title", "info", "materials"]
 
 class PastQSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

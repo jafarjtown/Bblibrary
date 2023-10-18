@@ -20,7 +20,7 @@ class MaterialViewset(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     filter_fields = ['course','title', "upload_on"]
     filter_backends = (FullWordSearchFilter,DjangoFilterBackend )
-    word_fields = ('title','comment')
+    word_fields = ('title','comment','course__code', 'course__title')
     
     
 class CourseViewset(viewsets.ModelViewSet):
