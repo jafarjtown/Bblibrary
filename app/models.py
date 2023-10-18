@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
-import mimetypes
+import mimetypes, os
 
 
 
@@ -14,7 +14,6 @@ def materials_directory_path(instance, filename):
 
 def material_name(instance):
     return instance.file.name
-    
 class Newsletter(models.Model):
     email = models.EmailField(unique=True)
     activate = models.BooleanField(default=True)
@@ -50,14 +49,12 @@ class Material(models.Model):
             return main_type
         return "files"
     @property
-    
     def code(self):
         return self.course.code
     
     @property
     def department(self):
         return self.course.department
-        
     @property 
     def size(self):
         file_size = self.file.size
@@ -71,12 +68,16 @@ class Material(models.Model):
     def __str__(self):
         return self.title
         
+        
     def delete(self, *args, **kwargs):
         if self.file:
-            file_path = self.file.path
-            if os.path.exist(self_path):
-                os.remove(file_path)
-        self.delete(*args, **kwargs)
+            path_file = self.file.path
+            print(path_file)
+            if os.path.exist(path_file):
+                pring("deleting")
+                os.remove(path_file)
+                print("finish deleting")
+        return self.delete(*args, **kwargs)
 
 
 class TimeTable(models.Model):

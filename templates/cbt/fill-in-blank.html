@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 <section >
     <h3>{{fill.name}} Fill in the blank</h3>
@@ -8,7 +8,7 @@
     {% for q in fill.questions.all %}
     <div trs>
         <p>{{forloop.counter}}. {{q.parse_html|safe}}</p>
-        <p style="display:none;padding-left:5px;border-left:1px solid" ans>Correct Answer : {{q.correct_answers}}</p>
+        <p style="display:none;padding-left:15px;border-left:1px solid" ans>Answer : <span correct_answer>{{q.correct_answers}}</span></p>
     </div>
     {% endfor %}
     <button class="submit-btn" btn type="button">Check</button>
@@ -16,14 +16,5 @@
 </section>
 {% endblock content %}
 {% block script %}
-<script>
-    const questions = document.querySelectorAll("[trs]")
-    const btn = document.querySelector("[btn]")
-    btn.addEventListener("click", ()=>{
-    questions.forEach(q=>{
-        let ans = q.querySelector("[ans]")
-        ans.style.display = "block"
-    })
-    })
-</script>
+<script src="{% static 'js/cbt_fill.js' %}"></script>
 {% endblock script %}

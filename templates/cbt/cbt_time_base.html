@@ -66,4 +66,9 @@
 {% block script %}
 <script src="{% static "js/cbt.js" %}"></script>
 <script src="{% static "js/timer.js" %}"></script>
+<script>
+    const form = document.querySelector("form")
+    form.onsubmit = () => { document.querySelectorAll("input").forEach(inp=>inp.disabled = false)
+    }
+</script>
 {% endblock script %} 

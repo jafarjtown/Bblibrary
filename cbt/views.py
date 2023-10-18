@@ -44,7 +44,7 @@ def cbt_test_result(request, id):
     result = {"score":0, "qss":{}}
     course = cbt.objects.get(id=id)
     qs = []
-    if request.method == "POST":
+    if request.method == "POST":  
         attempts = dict(request.POST)
         del attempts["csrfmiddlewaretoken"]
         for q, a in attempts.items():
@@ -55,7 +55,7 @@ def cbt_test_result(request, id):
             
             if op.is_correct:
                 result["score"] += 1
-    return render(request, "cbt/cbt_test.html", {"course": course, "qs": qs, "result": result})
+    return render(request, "cbt/cbt_time_base_result.html", {"course": course, "qs": qs, "result": result})
 
 
 def cbt_create_course(request):

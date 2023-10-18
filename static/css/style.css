@@ -189,9 +189,6 @@ footer .form-div label{
     border: none;
     border-radius: 4px;
 }
-.form-div .submit-btn[disabled]{
-    background-color: gray;
-}
 .form-div input[type="checkbox"]{
     width: fit-content;
 }
@@ -331,4 +328,18 @@ subscription.pr{
     padding: 10px;
     width: 100px;
     text-align: center;
+}
+.pqs-sec{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.pqs-sec summary{
+    padding: 10px;
+    background: black;
+    color: white;
+}
+.pqs-sec summary[odd]{
+    background-color: lightgray;
+    color: black;
 }

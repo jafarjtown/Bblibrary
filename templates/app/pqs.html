@@ -6,13 +6,22 @@
 </script>
 {% endblock script %}
 {% block content %}
-<section>
+<section class="pqs-sec">
         <h1>Past Questions</h1>
-        <ul>
-        {% for pq in pqs %}
-            <li>{{pq.course.code}} - {{pq.year.year}} [<a href="{{pq.pq.url}}">Download</a>]</li>
-        {% endfor %}
-        </ul>
+        
+            {% for c in courses %}
+            {% if c.pass_questions.count > 0 %}
+            <details>
+                <summary {% cycle "odd" "even" %}>{{c}}</summary>
+            
+                <ul>
+                {% for pq in c.pass_questions.all %}
+                <li>{{pq.year.year}} [<a href="{{pq.pq.url}}">Download</a>]</li>
+                {% endfor %}
+                </ul>
+           </details>
+           {% endif %}
+           {% endfor %}
         
 </section>
 

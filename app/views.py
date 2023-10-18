@@ -173,6 +173,6 @@ def register_newsletter(request):
 
 
 def past_questions(request):
-    pqs = PastQuestion.objects.all().order_by("course__code")
-    return render(request, 'app/pqs.html', {"pqs":pqs})
+    courses = Course.objects.all().order_by("code")
+    return render(request, 'app/pqs.html', {"courses":courses})
     
