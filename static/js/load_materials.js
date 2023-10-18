@@ -1,10 +1,11 @@
 const get_m = document.querySelector("[get-m]");
 const list_dom = document.querySelector("[list]");
-const department = document.querySelector("[department]");
-const course = document.querySelector("[course]");
-const level = document.querySelector("[level]");
 
 get_m.addEventListener('click', () => {
+    let department = document.querySelector("[department]");
+    let course = document.querySelector("[course]");
+    let level = document.querySelector("[level]");
+
     const d = department.value;
     const c = course.value;
     const l = level.value;

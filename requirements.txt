@@ -1,6 +1,8 @@
-django
+django==3.2
 gunicorn
 whitenoise
 dj-database-url
 psycopg2-binary
-django-createsuperuser
+djangorestframework-word-filter
+django-url-filter
+django-filter
