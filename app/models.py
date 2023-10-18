@@ -1,5 +1,6 @@
 # app/models.py
 from django.db import models
+from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
@@ -55,6 +56,14 @@ class Material(models.Model):
     @property
     def department(self):
         return self.course.department
+        
+    @property
+    def department_name(self):
+        return self.department.name
+    
+    @property
+    def flag_url(self):
+        return reverse("flag_material", kwargs={"mid":self.id})
     @property 
     def size(self):
         file_size = self.file.size

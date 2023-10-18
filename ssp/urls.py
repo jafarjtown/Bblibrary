@@ -22,6 +22,7 @@ urlpatterns = [
     path("", include("app.urls")),
     path("account/", include("user_account.urls")),
     path("cbt/", include("cbt.urls")),
+    path("api/rest/", include("api.urls")),
 ] 
 
 

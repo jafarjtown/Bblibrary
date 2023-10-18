@@ -17,8 +17,13 @@ INSTALLED_APPS = [
     
     "app",
     "user_account",
-    "cbt"
+    "cbt",
+    "api",
+    
+    "rest_framework",
+    'django_filters',
 ]
+INSTALLED_APPS += ('rest_framework_word_filter', )
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -104,3 +109,39 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 LOGIN_URL = "user_login"
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+
+    'DEFAULT': {
+        'DEFAULT_RENDERER_CLASSES': (
+            'rest_framework.renderers.JSONRenderer',
+        ),
+        'DEFAULT_PARSER_CLASSES': (
+            'rest_framework.parsers.JSONParser',
+        ),
+        'DEFAULT_AUTHENTICATION_CLASSES': (
+            'rest_framework.authentication.SessionAuthentication',
+        ),
+        'DEFAULT_PERMISSION_CLASSES': (
+            'rest_framework.permissions.IsAuthenticated',
+        ),
+        'DEFAULT_THROTTLE_CLASSES': (
+            'rest_framework.throttling.UserRateThrottle',
+        ),
+        'DEFAULT_THROTTLE_RATES': {
+            'user': '100/day',
+        },
+        'UNAUTHENTICATED_USER': 'anonymous',
+        'URL_FORMAT_OVERRIDE': 'json',
+        'VIEW_NAME_FUNCTION': 'rest_framework.views.get_view_name',
+        'ORDERING_PARAM': 'ordering',
+        'NAME': 'Babugas library API',
+    },
+    'COERCE_DECIMAL_TO_STRING': True,
+    'DEFAULT_FILTER_BACKENDS': [
+        'url_filter.integrations.drf.DjangoFilterBackend',
+    ]
+}
+

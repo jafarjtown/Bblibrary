@@ -34,10 +34,10 @@
             </select>
             </label>
             {% endif %}
-            
+            {% if not hbtn %}
          <div>
              <button class="submit-btn">{% if btn %}{{btn}}{% else %} Filter {% endif %}</button></div>
-        
+            {% endif %}
         
     </form>
 </div>
