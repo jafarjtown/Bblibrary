@@ -56,7 +56,19 @@ function createMaterialElement(obj) {
         <span>${obj.department_name}</span>
     `;
     material_info.append(img, info);
-
+    let dialog = document.createElement('dialog')
+    let dialog_actions = document.createElement("div")
+    dialog_actions.style.borderTop = "1px solid"
+    dialog_actions.style.padding = "5px"
+    let dialog_close = document.createElement("button")
+    dialog_close.innerText = "close"
+    dialog_close.style.padding="4px"
+    dialog_actions.appendChild(dialog_close)
+    dialog.append(obj.comment, dialog_actions)
+    dialog.style.position = "fixed"
+    dialog.style.top = "40px"
+    dialog.style.padding = "10px"
+    dialog.style.margin = "40px auto"
     const createButton = (text, iconSrc, url) => {
         const button = document.createElement("a");
         button.href = url;
@@ -72,7 +84,12 @@ function createMaterialElement(obj) {
     const view = createButton("View", '/static/imgs/view.png', obj.file);
     const report = createButton("Report", '/static/imgs/issue.png', obj.flag_url);
 
-    btns.append(download, view, report);
+    btns.append(download, view, report, dialog);
+    
+    // event listeners
+    
+    img.addEventListener("click", ()=>dialog.showModal())
+    dialog_close.addEventListener("click", ()=>dialog.close())
     return material;
 }
 
