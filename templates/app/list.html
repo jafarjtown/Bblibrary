@@ -10,15 +10,13 @@
             <button class="submit-btn" get-m>Get Materials</button>
         </div>
 <section>
-    {% if course %}
-        <h3>{{course.code}}</h3>
-        <h4>{{course.title}}</h4>
-    {% else %}
+   
     <h3>All Documents </h3>
-    {% endif %}
+    <div class="form-div" pagination></div>
     <div list>
      <p>Loading ...</p>
     </div>
+    <div class="form-div" pagination></div>
 </section>
 {% endblock %}
 {% block script %}

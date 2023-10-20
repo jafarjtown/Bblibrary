@@ -1,6 +1,6 @@
 const get_m = document.querySelector("[get-m]");
 const list_dom = document.querySelector("[list]");
-
+const PAGING_MAX = 20
 get_m.addEventListener('click', () => {
     let input = document.querySelector("[input]");
     
@@ -10,6 +10,7 @@ get_m.addEventListener('click', () => {
 
     list_dom.innerHTML = "<p>Loading ... Please wait</p>";
     loadMaterials(q);
+    
 });
 
 async function loadMaterials(queries = null) {
@@ -17,6 +18,7 @@ async function loadMaterials(queries = null) {
     const response = await fetch(url);
     const data = await response.json();
     populate_dom(data.results);
+    pagination(data);
 }
 
 function createMaterialElement(obj) {
@@ -75,5 +77,73 @@ function populate_dom(arr) {
         list_dom.appendChild(materialElement);
     }
 }
+function pagination(data) {
+    const next = data.next;
+    const previous = data.previous;
+    const count = Number.parseInt(data.count);
+    let current_page = 1
+    if (next !== null) {
+        const url_r = new URL(next);
+        const params = new URLSearchParams(url_r.search);
+        current_page = Number.parseInt(params.get("page"))-1
+    }else if (previous !== null) {
+        const url_r = new URL(previous);
+        const params = new URLSearchParams(url_r.search);
+        current_page = Number.parseInt(params.get("page"))+1 | 2
+    }
 
+    const createBtn = (text, url) => {
+        const btn = document.createElement('button');
+        btn.innerText = text;
+        //btn.className = "submit-btn";
+        btn.addEventListener("click", () => loadMaterials(null, url));
+        return btn;
+    }
+    
+    const createPagination=()=>{
+        const next_btn = createBtn("ᕗ", next);
+        const prev_btn = createBtn("ᕙ", previous);
+        if (current_page == 1) {
+            prev_btn.disabled = true
+        }
+        if(current_page == Math.ceil(count / PAGING_MAX)){
+        next_btn.disabled = true
+        }
+        
+        const createArr = () => {
+            let arr = [];
+            let l = Math.ceil(count / PAGING_MAX)+1
+            for (let i = 1; i < l; i++) {
+                let a = document.createElement('button');
+                a.innerText = i;
+                a.id = i
+                if (current_page === i) {
+                    a.disabled = true;
+                    
+                }
+                a.addEventListener("click", () => loadMaterials(`page=${i}`));
+                arr.push(a);
+            }
+            let p,s,e;
+            e = 7
+            if (current_page>4) {
+                s = cp-4
+                e = cp+3
+            }
+            if (current_page>l-7) {
+                s = l-8
+                e = arr.length
+            }
+            p = arr.slice(s,e)
+            return arr;
+        }
+        const pageButtons = createArr();
+        return [prev_btn, ...pageButtons, next_btn]
+    }
+    document.querySelectorAll("[pagination]").forEach(pg=>{
+    pg.innerHTML = "";
+    pg.append( ...createPagination());
+    })
+  
+}
 loadMaterials();
