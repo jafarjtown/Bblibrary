@@ -19,7 +19,7 @@ INSTALLED_APPS = [
     "user_account",
     "cbt",
     "api",
-    
+    # third party apps
     "rest_framework",
     'django_filters',
 ]
